@@ -1,0 +1,25 @@
+<p>This is the partial for view 1. {{name}}</p>
+<input type="text" ng-model="collegename.name"></input>
+<input type="button" ng-click="getCollegeInfo()" value="search"></input>
+<ul>
+	
+	<li ng-repeat="c in collegedata">
+		<span>{{c.id}} --- </span> 
+		<span>{{c.name}} --- </span>
+		<span>{{c.address}} --- </span> <input type="button" ng-click="updateCollegeInfo(c.id)" value="Update"></input>
+		<input type="button" ng-click="deleteCollegeInfo(c.id)" value="Delete"></input>
+		<br/>
+	</li>
+	
+</ul>
+<p>---------------------------------------------------------------------------------</p>
+<p>Data Displayed After Search</p>
+
+<ul>
+	<li ng-repeat="d in collegedata1">
+		
+		<span>{{d.name}} --- </span>
+		<span>{{d.address}} --- </span>
+	</li>	
+	
+</ul>

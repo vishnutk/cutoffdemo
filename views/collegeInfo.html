@@ -1,0 +1,117 @@
+
+			<button type="button" class="btn btn-default btn-lg" ng-click="addnewcollege=true">
+				 Add New College
+			</button>
+			<button type="button" class="btn btn-default btn-lg" ng-click="updateexistingcollege=true">
+				 Update Existing
+			</button>
+<form ng-submit="addCollege()" ng-show="addnewcollege">
+
+College Id : <input type="text" ng-model="college.id"></input>
+College Name : <input type="text" ng-model="college.name"></input>
+College District :
+				
+				
+					<select ng-model="college.dist" ng-options="dist.districtName for dist in district">
+		</select>
+College Status : <select ng-model="college.type">
+					<option value="govt">Govt</option>
+					<option value="govtaided">Govt Aided</option>
+					<option value="unaided">Un-Aided</option>
+					<option value="govtautonomus">Govt Autonomus</option>
+				</select>
+
+  <input type="submit" id="submitCollege" value="Submit" />
+  </form>
+  <input type="text" ng-show="updateexistingcollege" ng-model="college.id" placeholder="add college id here"></input>
+  <br><br/>
+  
+  			<button type="button" class="btn btn-default btn-lg" ng-click="addnewcourse=true">
+				 Add New Course
+			</button>
+			<button type="button" class="btn btn-default btn-lg" ng-click="updateexistingcourse=true">
+				 Update existing
+			</button>
+  
+  
+  <form ng-submit="addCourse()" ng-show="addnewcourse">
+College ID  : {{college.id}}
+Course Code : <input type="number" ng-model="course.code"></input>
+Course Name : <select type="text" ng-model="course.name">
+					<option value="Computer Engineering">Computer Engineering</option>
+					<option value="Civil Engineering">Civil Engineering</option>
+					<option value="Electronics Engineering">Electronics Engineering</option>
+					<option value="Information Technology">Information Technology</option>
+					<option value="Electrical Engineering">Electrical Engineering</option>
+					<option value="Electronics and Telecommunication Engg">Electronics and Telecommunication Engg</option>
+					<option value="Mechanical Engg">Mechanical Engg</option>
+					<option value="Other">Other</option>		
+			  </select>
+			  <input type="text" ng-model="course.name" placeholder="enter course name"></input>
+Course Intake : <input type="text" ng-model="course.intake"></input>
+Establishment: <input type="text" ng-model="course.startingyear"></input>
+
+  <input type="submit" id="submitCourse" value="Submit" />
+  
+</form>
+ <input type="text" ng-show="updateexistingcourse" ng-model="course.code" placeholder="add course code here"></input>
+<br/><br>
+
+  <form ng-submit="addCutOff()">
+College ID : {{college.id}}
+Course Code : {{course.code}}
+
+Seat Type : <select type="text" ng-model="cutoff.seattype">
+    
+    <option value="NGOPENH">NGOPENH</option>	    	
+    <option value="NGSCH">NGSCH</option>	    	
+    <option value="NGSTH">NGSTH</option>		    
+    <option value="NGVJH">NGVJH</option>		
+    <option value="NGNT1H">NGNT1H</option>		
+    <option value="NGNT2H">NGNT2H</option>		
+    <option value="NGNT3H">NGNT3H</option>		
+    <option value="NGOBCH">NGOBCH</option>		
+    <option value="NLOPENH">NLOPENH</option>		
+    <option value="NLSCH">NLSCH</option>	
+    <option value="NLSTH">NLSTH</option>		
+    <option value="NLVJH">NLVJH</option>		
+    <option value="NLOBCH">NLOBCH</option>		
+    <option value="NPHCH">NPHCH</option>	
+    <option value="NGOPENO">NGOPENO</option>		
+    <option value="NGSCO">NGSCO</option>		
+    <option value="NGSTO">NGSTO</option>		
+    
+    <option value="NDEFO">NDEFO</option>
+
+    <option value="TGOPENH">TGOPENH</option>
+    <option value="TGSCH">TGSCH</option>
+    <option value="TGOBCH">TGOBCH</option>
+    <option value="TLOPENH">TLOPENH</option>
+    <option value="TLSTH">TLSTH</option>
+    <option value="TGOPENO"></option>
+    <option value="TGOBCO">TGOBCO</option>
+    <option value="TLOPENO">TLOPENO</option>
+
+
+
+ </select>
+Category : <select type="text" ng-model="cutoff.category">
+
+    <option value="OPEN">OPEN</option>
+    <option value="SC">SC</option>
+    <option value="ST">ST</option>
+    <option value="VJ">VJ</option>
+    <option value="NT1">NT1</option>
+    <option value="NT2">NT2</option>
+    <option value="NT3">NT3</option>
+    <option value="OBC">OBC</option>		
+    <option value="SBC/OBC">SBC/OBC</option>
+
+ </select>
+			  Percentage : <input type="text" ng-model="cutoff.percentage" placeholder="enter cutoff name"></input>
+Cutoff Merit No : <input type="text" ng-model="cutoff.meritno"></input>
+
+
+  <input type="submit" id="submitCourse" value="Submit" />
+  
+</form>
