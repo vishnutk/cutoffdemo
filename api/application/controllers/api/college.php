@@ -109,7 +109,7 @@ class College extends REST_Controller
         if($data) {
             $this->response($data, 200);
         } else {
-            $this->response(array('error' => 'No Records Found'), 404);
+            $this->response(array('error' => 'No Records Found'), 200);
         }
     }
 	

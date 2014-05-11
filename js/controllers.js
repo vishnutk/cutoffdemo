@@ -39,36 +39,66 @@ angular.module('myApp.controllers', [])
 		$scope.init = function(){
 			CollegeService.getDistricts.query(function(data) {
 				$scope.district = data;
-				console.log(data);
+				//console.log(data);
 			});
 		};
 		$scope.init();
   }])
- .controller('SearchCtrl', ["$scope", "CollegeService", function($scope, CollegeService) {
- 
- 		$scope.searchData = {};
-
+  
+ .controller('searchOptionsCtrl', ["$scope", "$rootScope", "CollegeService", function($scope, $rootScope, CollegeService) {
 		$scope.init = function(){
 			CollegeService.getDistricts.query(function(data) {
 				$scope.district = data;
-				console.log(data);
+				//console.log(data);
 			});
 		};
 		
 		$scope.callSearch = function() {
-//			console.log($scope.searchData);
+//			//console.log($scope.searchData);
 			var data = {};
 			data.seatType = $scope.searchData.type + $scope.searchData.gender + $scope.searchData.category + $scope.searchData.distType;
 			data.distictid = $scope.searchData.dist.districtID;
 			data.collegeType = $scope.searchData.collegeType;
 			data.percentage = $scope.searchData.percentage;
-			console.log(data);
+			//console.log(data);
 			CollegeService.searchCollege(data, function(data) {
-				$scope.resultData = data;
+				console.log(data);
+
+				if(!data.error) {
+					$rootScope.resultData = data;
+				} else {
+					$rootScope.resultData = [];
+				}
 			});
 		};
-		
+				
 		$scope.init();
+ }])
+ .controller('SearchCtrl', ["$scope", "$rootScope","CollegeService", function($scope, $rootScope, CollegeService) {
+ 
+// 		$scope.searchData = {};
+
+// 		$scope.init = function(){
+// 			CollegeService.getDistricts.query(function(data) {
+// 				$scope.district = data;
+// 				console.log(data);
+// 			});
+// 		};
+		
+// 		$rootScope.callSearch = function() {
+// //			console.log($scope.searchData);
+// 			var data = {};
+// 			data.seatType = $scope.searchData.type + $scope.searchData.gender + $scope.searchData.category + $scope.searchData.distType;
+// 			data.distictid = $scope.searchData.dist.districtID;
+// 			data.collegeType = $scope.searchData.collegeType;
+// 			data.percentage = $scope.searchData.percentage;
+// 			console.log(data);
+// 			CollegeService.searchCollege(data, function(data) {
+// 				$scope.resultData = data;
+// 			});
+// 		};
+		
+		//$scope.init();
 		
   }])
   .controller('MyCtrl1', ["$scope", "College", "DeleteCollege", "AddCollege","SearchCollege", "CollegeService", function($scope, College, DeleteCollege, AddCollege, SearchCollege, CollegeService) {

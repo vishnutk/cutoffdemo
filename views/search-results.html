@@ -1,7 +1,7 @@
 <div class="container searchContainer">
 
       <div class="row row-offcanvas row-offcanvas-right">
-	<div class="panel panel-default col-xs-12 col-sm-9">
+	<div class="panel panel-info col-xs-12 col-sm-9">
       <!-- Default panel contents -->
       <div class="panel-heading">College Results</div>
 
@@ -28,64 +28,21 @@
 			<td>{{d.seattype}}</td>
 			<td>{{d.category}}</td>
           </tr>
+<!-- 
+          <tr ng-hide="resultData">
+            <td>No result found.</td>
+          </tr>
+ -->
         </tbody>
       </table>
+      <div class="alert alert-danger" ng-hide="resultData">
+      	No result found
+      </div>
     </div>
-   
-        <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-          <div class="list-group">
-			<input type="text" ng-model="searchData.percentage" placeholder="Enter your percentage..." required></input>%
-			<select class="list-group-item" ng-model="searchData.type" placeholder="Select Type">
-				<option value="">Select Type...</option>
-				<option value="T">Technical</option>
-				<option value="N">Non-Technical</option>
-			</select>
 
-			<select class="list-group-item" ng-model="searchData.collegeType" placeholder="Select College Type">
-				<option value="">All</option>
-				<option value="govt">Government</option>
-				<option value="govt-aided">Govt. Aided</option>
-				<option value="un-aided">Un-Aided</option>
-				<option value="autonomus">Autonomus</option>
-			</select>
+        <div class="col-xs-6 col-sm-3 sidebar-offcanvas search-collapse" id="sidebar" role="navigation" ng-include="'views/search-options.html'">
+        </div><!-- /.nav-collapse -->
 
-			<select class="list-group-item" ng-model="searchData.gender" placeholder="Select Gender">
-				<option value="">Select Gender...</option>
-				<option value="G">General</option>
-				<option value="L">Ladies</option>
-			</select>
-			<select class="list-group-item" ng-model="searchData.category" placeholder="Select Category">
-				<option value="">Select Category...</option>
-				<option value="OPEN">Open</option>
-				<option value="SC">SC</option>
-				<option value="ST">ST</option>
-				<option value="VJ">VJ</option>
-				<option value="NT1">NT1</option>
-				<option value="NT2">NT2</option>
-				<option value="NT3">NT3</option>
-				<option value="OBC">OBC</option>
-				<option>SBC/OBC</option>
-			</select>
-			<select class="list-group-item" ng-model="searchData.distType" placeholder="Select District Type">
-				<option value="">Select District Type...</option>
-				<option value="H">Home District</option>
-				<option value="O">Other District</option>
-			</select>
-			<!-- <select class="list-group-item" placeholder="Select District">
-				<option value="">Select District...</option>
-				<option>Latur</option>
-				<option>Osmanabad</option>
-				<option>Nanded</option>
-			</select> -->
-			
-		<select class="list-group-item" ng-model="searchData.dist" ng-options="dist.districtName for dist in district">
-			<option value="">Select District...</option>
-		</select>
-			<button type="button" class="btn btn-default btn-lg" ng-click="callSearch()">
-				<span class="glyphicon glyphicon-search"></span> Search
-			</button>
-          </div>
-        </div>
       </div><!--/row-->
 
       <hr>
