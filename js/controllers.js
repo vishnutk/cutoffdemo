@@ -9,6 +9,9 @@ angular.module('myApp.controllers', [])
 		$scope.course.intake = 60;
 		$scope.cutoff = {};
 		
+		$scope.searchData = function() {
+		};
+		
 		$scope.addCollege = function() {
 		
 			$scope.college.dist = $scope.college.dist.districtID;
@@ -43,12 +46,28 @@ angular.module('myApp.controllers', [])
   }])
  .controller('SearchCtrl', ["$scope", "CollegeService", function($scope, CollegeService) {
  
+ 		$scope.searchData = {};
+
 		$scope.init = function(){
 			CollegeService.getDistricts.query(function(data) {
 				$scope.district = data;
 				console.log(data);
 			});
 		};
+		
+		$scope.callSearch = function() {
+//			console.log($scope.searchData);
+			var data = {};
+			data.seatType = $scope.searchData.type + $scope.searchData.gender + $scope.searchData.category + $scope.searchData.distType;
+			data.distictid = $scope.searchData.dist.districtID;
+			data.collegeType = $scope.searchData.collegeType;
+			data.percentage = $scope.searchData.percentage;
+			console.log(data);
+			CollegeService.searchCollege(data, function(data) {
+				$scope.resultData = data;
+			});
+		};
+		
 		$scope.init();
 		
   }])

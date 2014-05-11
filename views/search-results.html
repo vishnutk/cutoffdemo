@@ -9,22 +9,24 @@
       <table class="table">
         <thead>
           <tr>
-            <th>#</th>
+            <th>Sr.No.</th>
             <th>Institute</th>
             <th>Course</th>
             <th>Cut Off</th>
-			<th>Merit No.</th>
-			<th>View</th>
+<!-- 			<th>Merit No.</th> -->
+			<th>Seat Type</th>
+			<th>Category</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>1</td>
-            <td>PLC, Latur</td>
-            <td>Compute Science</td>
-            <td>83.88</td>
-			<td>45455</td>
-			<td>View</td>
+          <tr ng-repeat="d in resultData">
+            <td>{{d.id}}</td>
+            <td>{{d.collegeName}}</td>
+            <td>{{d.courseName}}</td>
+            <td>{{d.percentage}}</td>
+<!-- 			<td>45455</td> -->
+			<td>{{d.seattype}}</td>
+			<td>{{d.category}}</td>
           </tr>
         </tbody>
       </table>
@@ -32,33 +34,42 @@
    
         <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
           <div class="list-group">
-			<input type="text" placeholder="Enter your percentage..." required></input>%
-			<select class="list-group-item" placeholder="Select Type">
+			<input type="text" ng-model="searchData.percentage" placeholder="Enter your percentage..." required></input>%
+			<select class="list-group-item" ng-model="searchData.type" placeholder="Select Type">
 				<option value="">Select Type...</option>
-				<option>Technical</option>
-				<option>Non-Technical</option>
+				<option value="T">Technical</option>
+				<option value="N">Non-Technical</option>
 			</select>
-			<select class="list-group-item" placeholder="Select Gender">
+
+			<select class="list-group-item" ng-model="searchData.collegeType" placeholder="Select College Type">
+				<option value="">All</option>
+				<option value="govt">Government</option>
+				<option value="govt-aided">Govt. Aided</option>
+				<option value="un-aided">Un-Aided</option>
+				<option value="autonomus">Autonomus</option>
+			</select>
+
+			<select class="list-group-item" ng-model="searchData.gender" placeholder="Select Gender">
 				<option value="">Select Gender...</option>
-				<option>Male</option>
-				<option>Female</option>
+				<option value="G">General</option>
+				<option value="L">Ladies</option>
 			</select>
-			<select class="list-group-item" placeholder="Select Category">
+			<select class="list-group-item" ng-model="searchData.category" placeholder="Select Category">
 				<option value="">Select Category...</option>
-				<option>Open</option>
-				<option>SC</option>
-				<option>ST</option>
-				<option>VJ</option>
-				<option>NT1</option>
-				<option>NT2</option>
-				<option>NT3</option>
-				<option>OBC</option>
+				<option value="OPEN">Open</option>
+				<option value="SC">SC</option>
+				<option value="ST">ST</option>
+				<option value="VJ">VJ</option>
+				<option value="NT1">NT1</option>
+				<option value="NT2">NT2</option>
+				<option value="NT3">NT3</option>
+				<option value="OBC">OBC</option>
 				<option>SBC/OBC</option>
 			</select>
-			<select class="list-group-item" placeholder="Select District Type">
+			<select class="list-group-item" ng-model="searchData.distType" placeholder="Select District Type">
 				<option value="">Select District Type...</option>
-				<option>Home District</option>
-				<option>Other District</option>
+				<option value="H">Home District</option>
+				<option value="O">Other District</option>
 			</select>
 			<!-- <select class="list-group-item" placeholder="Select District">
 				<option value="">Select District...</option>
@@ -67,9 +78,10 @@
 				<option>Nanded</option>
 			</select> -->
 			
-		<select class="list-group-item" ng-model="college.dist" ng-options="dist.districtName for dist in district">
+		<select class="list-group-item" ng-model="searchData.dist" ng-options="dist.districtName for dist in district">
+			<option value="">Select District...</option>
 		</select>
-			<button type="button" class="btn btn-default btn-lg">
+			<button type="button" class="btn btn-default btn-lg" ng-click="callSearch()">
 				<span class="glyphicon glyphicon-search"></span> Search
 			</button>
           </div>

@@ -101,14 +101,15 @@ class College extends REST_Controller
 	function searchcollege_post()
     {
 		$this->load->database();
-		$sql = "SELECT * FROM colleges WHERE name = '".$this->post('name')."'";
+        
+        $sql = "SELECT * FROM cutoff inner join college on cutoff.collegeID = college.collegeID inner join course on cutoff.courseCode = course.courseCode WHERE seattype = '" .$this->post('seatType'). "' and percentage > ".$this->post('percentage');
         $query = $this->db->query($sql);
         $data = $query->result();
 		
         if($data) {
             $this->response($data, 200);
         } else {
-            $this->response(array('error' => 'Couldn\'t find any College name '.$letter.'!'), 404);
+            $this->response(array('error' => 'No Records Found'), 404);
         }
     }
 	

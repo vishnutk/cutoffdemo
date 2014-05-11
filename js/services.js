@@ -9,25 +9,26 @@ var collegeService = angular.module('myApp.services', ['ngResource']);
 
  collegeService.value('version', '0.1');
   
+  var appConfigUrl = 'http://localhost/cutoffsearch/cutoffdemo/api/index.php/api/';
   
 //  var phonecatServices = angular.module('phonecatServices', ['ngResource']);
 collegeService.factory('CollegeService', ['$resource', '$http', function($resource, $http) {
 	var CollegeService = function() {
 		this.getColleges = function() {
-			return $resource('http://localhost/searchdemoproject/api/index.php/api/college/colleges/format/json', {}, {
+			return $resource(appConfigUrl + 'college/colleges/format/json', {}, {
 				query: {method:'GET', isArray:true}
 			});
 		}();
 		
 		this.getDistricts = function() {
-			return $resource('http://localhost/cutofsearch/api/index.php/api/college/districts/format/json', {}, {
+			return $resource(appConfigUrl + 'college/districts/format/json', {}, {
 				query: {method:'GET', isArray:true}
 			});
 		}();
 		
 		this.searchCollege = function() {
 			return function(data, callback) {
-				$http.post('http://localhost/searchdemoproject/api/index.php/api/college/searchcollege/format/json', data).success(function(data, status, headers) {
+				$http.post(appConfigUrl + 'college/searchcollege/format/json', data).success(function(data, status, headers) {
 					callback(data);
 				});
 			};
