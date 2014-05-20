@@ -29,7 +29,7 @@
 *
 **/
 
-	$data->read('newdata123.xls');
+	$data->read('51.xls');
 
 	$link = mysql_connect('localhost', 'root', '');
 	if (!$link) {
@@ -44,6 +44,14 @@
 	$indexRow = 1;
 	$isSave = false;
 	
+	$collegeQuery = "";
+	$branchQuery = "";
+	$cutOffQuery = "";
+
+	$collegeid = "000";
+	$collegeName = "";
+	$branchid = "000";
+	
 	$cutOffQuery = "INSERT INTO cutoff (collegeID, courseCode, seattype, category, percentage, meritno) VALUES ";
 	
 	error_reporting(E_ALL ^ E_NOTICE);
@@ -53,10 +61,69 @@
 		for ($j = 1; $j <= $data->sheets[0]['numCols']; $j++) {
 			if($data->sheets[0]['cells'][$i][1] == "Index") {
 				$indexRow = $i;
+
+				//Parse college
+				if($data->sheets[0]['cells'][$i][2]) {
+					$college = explode(' - ', $data->sheets[0]['cells'][$i][2]);
+					$collegeid = $college[0];
+//					echo $collegeid;
+					$collegename = $college[1];
+//					echo $collegename;
+					
+					$selectquery ="SELECT * FROM college WHERE collegeID=$collegeid";
+    				$selectresult=mysql_query($selectquery) or die("query fout " . mysql_error() );
+				    if(mysql_num_rows($selectresult)==0) {
+				        $selectquery = "INSERT INTO college(collegeID, collegeType, collegeName, collegeDist) VALUES ";
+				        $selectquery = $selectquery . "(".$collegeid.", 'govt', \"".$collegename."\", 1)";
+//    					echo $selectquery;
+    					$result = mysql_query($selectquery);
+ 
+			 			if (!$result) {
+			 				$message  = 'Invalid query: ' . mysql_error() . "\n";
+							$message .= 'Whole query: ' . $query;
+							die($message);
+						}
+    				}
+
+				}
+				
+				if($data->sheets[0]['cells'][$i][3]) {
+					$course = str_replace('#', '', $data->sheets[0]['cells'][$i][3]);
+					$course = explode(' - ', $course);
+					$courseCode = $course[0];
+//					echo $collegeid;
+					$courseName = $course[1];
+					$isTfws = strpos($courseName, "[TFWS]");
+//					echo $collegename;
+					if($isTfws === false) {
+						$isTfws = 0;
+					} else {
+						$isTfws = 1;
+					}
+					
+					$selectquery ="SELECT * FROM course WHERE courseCode=$courseCode";
+    				$selectresult=mysql_query($selectquery) or die("query fout " . mysql_error() );
+				    if(mysql_num_rows($selectresult)==0) {
+				        $selectquery = "INSERT INTO course(courseCode, courseName, intake, startingyear, isTfws, collegeID) VALUES ";
+				        $selectquery = $selectquery . "(".$courseCode.", \"".$courseName."\", 60, 1990, ".$isTfws.", ".$collegeid.")";
+//    					echo $selectquery;
+    					$result = mysql_query($selectquery);
+ 
+			 			if (!$result) {
+			 				$message  = 'Invalid query: ' . mysql_error() . "\n";
+							$message .= 'Whole query: ' . $query;
+							die($message);
+						}
+    				}
+
+				}
+
+
+
 			}
 			if($data->sheets[0]['cells'][$i][1] == "Data") {
 				if($data->sheets[0]['cells'][$i][$j] && $data->sheets[0]['cells'][$indexRow][$j] && $data->sheets[0]['cells'][$i][$j] != "Data") {
-					$cutOffQuery = $cutOffQuery. "(1006, 100624510, ";
+					$cutOffQuery = $cutOffQuery. "(".$collegeid.", ".$courseCode.", ";
 					$cutOffQuery = $cutOffQuery ." '". $data->sheets[0]['cells'][$i][6] ."', ";
 					$cutOffQuery = $cutOffQuery ." '". $data->sheets[0]['cells'][$indexRow][$j] ."', ";
 					$marks = explode(" ", $data->sheets[0]['cells'][$i][$j]);
@@ -77,9 +144,8 @@
 		if($isSave) {
 			$cutOffQuery = rtrim($cutOffQuery, ',');
 			echo $cutOffQuery;
-			//$isSave = false;
 			$result = mysql_query($cutOffQuery);
-
+ 
 			if (!$result) {
 				$message  = 'Invalid query: ' . mysql_error() . "\n";
 				$message .= 'Whole query: ' . $query;

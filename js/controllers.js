@@ -46,6 +46,16 @@ angular.module('myApp.controllers', [])
   }])
   
  .controller('searchOptionsCtrl', ["$scope", "$rootScope", "CollegeService", function($scope, $rootScope, CollegeService) {
+		$scope.searchData = {
+			type: "",
+			gender: "",
+			category: "",
+			distType: "",
+			collegeType: "",
+			percentage: "",
+			districtID: ""
+		};
+		
 		$scope.init = function(){
 			CollegeService.getDistricts.query(function(data) {
 				$scope.district = data;
@@ -53,23 +63,54 @@ angular.module('myApp.controllers', [])
 			});
 		};
 		
+		$scope.validateInput = function() {
+			if(!$scope.searchData.type) {
+				alert('Please select type');
+				return false;
+			}
+			if(!$scope.searchData.gender) {
+				alert('Please select gender');
+				return false;
+			}
+			if(!$scope.searchData.gender) {
+				alert('Please select gender');
+				return false;
+			}
+			if(!$scope.searchData.category) {
+				alert('Please select category');
+				return false;
+			}
+			if(!$scope.searchData.distType) {
+				alert('Please select district type');
+				return false;
+			}
+			if(!$scope.searchData.districtID) {
+				alert('Please select district');
+				return false;
+			}			
+
+		};
+		
 		$scope.callSearch = function() {
 //			//console.log($scope.searchData);
 			var data = {};
-			data.seatType = $scope.searchData.type + $scope.searchData.gender + $scope.searchData.category + $scope.searchData.distType;
-			data.distictid = $scope.searchData.dist.districtID;
-			data.collegeType = $scope.searchData.collegeType;
-			data.percentage = $scope.searchData.percentage;
-			//console.log(data);
-			CollegeService.searchCollege(data, function(data) {
-				console.log(data);
+			//if($scope.validateInput()) {
+//			alert('test');
+				data.seatType = $scope.searchData.type + $scope.searchData.gender + $scope.searchData.category + $scope.searchData.distType;
+				data.distictid = $scope.searchData.dist.districtID;
+				data.collegeType = $scope.searchData.collegeType;
+				data.percentage = $scope.searchData.percentage;
+				//console.log(data);
+				CollegeService.searchCollege(data, function(data) {
+					console.log(data);
 
-				if(!data.error) {
-					$rootScope.resultData = data;
-				} else {
-					$rootScope.resultData = [];
-				}
-			});
+					if(!data.error) {
+						$rootScope.resultData = data;
+					} else {
+						$rootScope.resultData = [];
+					}
+				});
+			//}
 		};
 				
 		$scope.init();

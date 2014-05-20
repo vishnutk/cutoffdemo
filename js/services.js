@@ -9,7 +9,7 @@ var collegeService = angular.module('myApp.services', ['ngResource']);
 
  collegeService.value('version', '0.1');
   
-  var appConfigUrl = 'http://localhost/cutoffsearch/cutoffdemo/api/index.php/api/';
+  var appConfigUrl = 'http://localhost/cutoffdemo/api/index.php/api/';
   
 //  var phonecatServices = angular.module('phonecatServices', ['ngResource']);
 collegeService.factory('CollegeService', ['$resource', '$http', function($resource, $http) {

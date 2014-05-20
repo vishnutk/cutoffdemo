@@ -1,14 +1,20 @@
-        <ul class="list-group" ng-controller="searchOptionsCtrl">
-            <li class="list-group-item"><input type="text" ng-model="searchData.percentage" placeholder="Enter your percentage..." required></input>%</li>
-            <li class="list-group-item">	
-            	<select  ng-model="searchData.type" placeholder="Select Type">
+	<form name="myForm"  ng-controller="searchOptionsCtrl" class="my-form">
+        <ul class="list-group">
+            <li class="list-group-item">
+                    <span style="color:red" ng-show="myForm.txtPercentage.$error.required">*</span>
+            		<input name="txtPercentage" type="text" ng-model="searchData.percentage" placeholder="Enter your percentage..." required></input>%
+            </li>
+            <li class="list-group-item">
+	            <span style="color:red" ng-show="myForm.selectType.$error.required">*</span>
+            	<select name="selectType" ng-model="searchData.type" placeholder="Select Type" required>
 					<option value="">Select Type...</option>
 					<option value="T">Technical</option>
 					<option value="N">Non-Technical</option>
 				</select>
 			</li>
             <li class="list-group-item">
-				<select  ng-model="searchData.collegeType" placeholder="Select College Type">
+	            <span style="color:red" ng-show="myForm.selectCollegeType.$error.required">*</span>
+				<select name="selectCollegeType" ng-model="searchData.collegeType" placeholder="Select College Type" required>
 					<option value="">All</option>
 					<option value="govt">Government</option>
 					<option value="govt-aided">Govt. Aided</option>
@@ -17,96 +23,65 @@
 				</select>
             </li>
 			<li class="list-group-item">
-				<select  ng-model="searchData.gender" placeholder="Select Gender">
+				<span style="color:red" ng-show="myForm.selectGender.$error.required">*</span>
+				<select name="selectGender" ng-model="searchData.gender" placeholder="Select Gender" required>
 					<option value="">Select Gender...</option>
 					<option value="G">General</option>
 					<option value="L">Ladies</option>
 				</select>
 			</li>
 			<li class="list-group-item">
-			<select  ng-model="searchData.category" placeholder="Select Category">
-				<option value="">Select Category...</option>
-				<option value="OPEN">Open</option>
-				<option value="SC">SC</option>
-				<option value="ST">ST</option>
-				<option value="VJ">VJ</option>
-				<option value="NT1">NT1</option>
-				<option value="NT2">NT2</option>
-				<option value="NT3">NT3</option>
-				<option value="OBC">OBC</option>
-				<option>SBC/OBC</option>
-			</select>
+				<span style="color:red" ng-show="myForm.selectCategory.$error.required">*</span>
+				<select name="selectCategory" ng-model="searchData.category" placeholder="Select Category" required>
+					<option value="">Select Category...</option>
+					<option value="OPEN">Open</option>
+					<option value="SC">SC</option>
+					<option value="ST">ST</option>
+					<option value="VJ">VJ</option>
+					<option value="NT1">NT1</option>
+					<option value="NT2">NT2</option>
+					<option value="NT3">NT3</option>
+					<option value="OBC">OBC</option>
+					<option>SBC/OBC</option>
+				</select>
 			</li>
 			<li class="list-group-item">
-
-			<select  ng-model="searchData.distType" placeholder="Select District Type">
-				<option value="">Select District Type...</option>
-				<option value="H">Home District</option>
-				<option value="O">Other District</option>
-			</select>
+				<span style="color:red" ng-show="myForm.selectDistType.$error.required">*</span>
+				<select name="selectDistType" ng-model="searchData.distType" placeholder="Select District Type" required>
+					<option value="">Select District Type...</option>
+					<option value="H">Home District</option>
+					<option value="O">Other District</option>
+				</select>
 			</li>
 			<li class="list-group-item">
-
-		<select  ng-model="searchData.dist" ng-options="dist.districtName for dist in district">
-			<option value="">Select District...</option>
-		</select>
+				<span style="color:red" ng-show="myForm.selectDist.$error.required">*</span>
+				<select name="selectDist" ng-model="searchData.dist" ng-options="dist.districtName for dist in district" required>
+					<option value="">Select District...</option>
+				</select>
 			</li>
 			<li class="list-group-item">
+				<label>
+      				<input type="checkbox" ng-model="searchData.phand">&nbsp;&nbsp;Physically Handicaped
+    			</label>
+			</li>
+			<li class="list-group-item">
+				<label>
+      				<input type="checkbox" ng-model="searchData.defence">&nbsp;&nbsp;Defence
+    			</label>
+			</li>
+			<li class="list-group-item">
+				<label>
+      				<input type="checkbox" ng-model="searchData.tfws">&nbsp;&nbsp;TFWS
+    			</label>
+			</li>
 
-			<button type="button" class="btn btn-info" ng-click="callSearch()">
+			<li class="list-group-item">
+
+			<button ng-disabled="!myForm.$valid" type="submit" class="btn btn-info" ng-click="callSearch()">
 				<span class="glyphicon glyphicon-search"></span> Search
 			</button>
 
 			</li>
 
           </ul>
- <!-- 
-       <div class="col-xs-6 col-sm-3 sidebar-offcanvas" id="sidebar" role="navigation">
-          <div class="list-group">
-			<input type="text" ng-model="searchData.percentage" placeholder="Enter your percentage..." required></input>%
-			<select class="list-group-item" ng-model="searchData.type" placeholder="Select Type">
-				<option value="">Select Type...</option>
-				<option value="T">Technical</option>
-				<option value="N">Non-Technical</option>
-			</select>
-
-			<select class="list-group-item" ng-model="searchData.collegeType" placeholder="Select College Type">
-				<option value="">All</option>
-				<option value="govt">Government</option>
-				<option value="govt-aided">Govt. Aided</option>
-				<option value="un-aided">Un-Aided</option>
-				<option value="autonomus">Autonomus</option>
-			</select>
-
-			<select class="list-group-item" ng-model="searchData.gender" placeholder="Select Gender">
-				<option value="">Select Gender...</option>
-				<option value="G">General</option>
-				<option value="L">Ladies</option>
-			</select>
-			<select class="list-group-item" ng-model="searchData.category" placeholder="Select Category">
-				<option value="">Select Category...</option>
-				<option value="OPEN">Open</option>
-				<option value="SC">SC</option>
-				<option value="ST">ST</option>
-				<option value="VJ">VJ</option>
-				<option value="NT1">NT1</option>
-				<option value="NT2">NT2</option>
-				<option value="NT3">NT3</option>
-				<option value="OBC">OBC</option>
-				<option>SBC/OBC</option>
-			</select>
-			<select class="list-group-item" ng-model="searchData.distType" placeholder="Select District Type">
-				<option value="">Select District Type...</option>
-				<option value="H">Home District</option>
-				<option value="O">Other District</option>
-			</select>
-		<select class="list-group-item" ng-model="searchData.dist" ng-options="dist.districtName for dist in district">
-			<option value="">Select District...</option>
-		</select>
-			<button type="button" class="btn btn-default btn-lg" ng-click="callSearch()">
-				<span class="glyphicon glyphicon-search"></span> Search
-			</button>
-          </div>
-        </div>
-      </div>
- -->
+    </form>

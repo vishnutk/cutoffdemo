@@ -12,27 +12,20 @@
             <th>Sr.No.</th>
             <th>Institute</th>
             <th>Course</th>
-            <th>Cut Off</th>
-<!-- 			<th>Merit No.</th> -->
-			<th>Seat Type</th>
-			<th>Category</th>
+            <th>Category</th>
+			<th>Merit No.</th>
+			<th>Cutoff %</th>
           </tr>
         </thead>
         <tbody>
           <tr ng-repeat="d in resultData">
-            <td>{{d.id}}</td>
-            <td>{{d.collegeName}}</td>
+            <td>{{$index+1}}</td>
+            <td><a ng-href="http://www.dtemaharashtra.gov.in/approvedinstitues/StaticPages/frmInstituteSummary.aspx?InstituteCode={{d.collegeID}}" target="_blank">{{d.collegeName}}</a></td>
             <td>{{d.courseName}}</td>
+            <td>{{d.category}}</td>
+        	<td>{{d.meritno}}</td>
             <td>{{d.percentage}}</td>
-<!-- 			<td>45455</td> -->
-			<td>{{d.seattype}}</td>
-			<td>{{d.category}}</td>
           </tr>
-<!-- 
-          <tr ng-hide="resultData">
-            <td>No result found.</td>
-          </tr>
- -->
         </tbody>
       </table>
       <div class="alert alert-danger" ng-hide="resultData">
