@@ -27,6 +27,52 @@
      * setColumnFormat - set format for column (apply only to number fields)
      *
      **/
+     
+    function getDistrictCode($arg_1)
+	{
+		echo "Argument ". $arg_1;
+		switch($arg_1) {
+			case "Ahmadnagar": return 1;
+			case "Akola": return 2;
+			case "Amravati": return 3;
+			case "Aurangabad": return 4;
+			case "Beed": return 5;
+			case "Bhandara": return 6;
+			case "Buldhana": return 7;
+			case "Chandrapur": return 8;
+			case "Dhule": return 9;
+			case "Gadchiroli": return 10;
+			case "Gondia": return 11;
+			case "Hingoli": return 12;
+			case "Jalgaon": return 13;
+			case "Jalna": return 14;
+			case "Kolhapur": return 15;
+			case "Latur": return 16;
+			case "Mumbai and Mumbai Suburban": return 17;
+			case "Nagpur": return 18;
+			case "Nanded": return 19;
+			case "Nandurbar": return 20;
+			case "Nasik": return 21;
+			case "Osmanabad": return 22;
+			case "Parbhani": return 23;
+			case "Pune": return 24;
+			case "Raigadh": return 25;
+			case "Ratnagiri": return 26;
+			case "Sangali": return 27;
+			case "Satara": return 28;
+			case "Sindhudurg": return 29;
+			case "Solapur": return 30;
+			case "Thane": return 31;
+			case "Wardha": return 32;
+			case "Washim": return 33;
+			case "Yavatmal": return 34;
+			default: return 0;
+    	}
+	}
+	 
+	 
+
+
     $fnCnt = 51;
     $link  = mysql_connect('localhost', 'root', '');
     if (!$link) {
@@ -38,7 +84,7 @@
         die('Can\'t use foo : ' . mysql_error());
     }
     
-    for ($fnCnt = 51; $fnCnt < 2001; $fnCnt += 50) {
+    for ($fnCnt = 101; $fnCnt < 2001; $fnCnt += 50) {
         $data = new Spreadsheet_Excel_Reader();
         $data->setOutputEncoding('CP1251');
         $data->read('meta/' . $fnCnt . '.xls');
@@ -73,12 +119,14 @@
                         //					echo $collegeid;
                         $collegename = $college[1];
                         //					echo $collegename;
+                        $districtid = $data->sheets[0]['cells'][$i][5];
+                        $districtid = getDistrictCode($districtid);
                         
                         $selectquery = "SELECT * FROM college WHERE collegeID=$collegeid";
                         $selectresult = mysql_query($selectquery) or die("query fout - " . mysql_error() . "<br/>" . $selectquery);
                         if (mysql_num_rows($selectresult) == 0) {
                             $selectquery = "INSERT INTO college(collegeID, collegeType, collegeName, collegeDist) VALUES ";
-                            $selectquery = $selectquery . "(" . $collegeid . ", 'govt', \"" . $collegename . "\", 1)";
+                            $selectquery = $selectquery . "(" . $collegeid . ", 'govt', \"" . $collegename . "\", ".$districtid.")";
                             //    					echo $selectquery;
                             $result      = mysql_query($selectquery);
                             
