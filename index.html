@@ -61,9 +61,10 @@
         </div><!-- /.nav-collapse -->
       </div><!-- /.container -->
     </div><!-- /.navbar -->
-
   <div ng-view></div>
 
+  <span ng-show="loadingData" us-spinner="{radius:12, width:5, length: 12}"></span>
+  <div ng-show="loadingData" id="loadingSpin"></div>
 
 
   <!-- In production use:
@@ -72,12 +73,16 @@
   <script src="lib/angular/angular.min.js"></script>
   <script src="lib/angular/angular-route.min.js"></script>
   <script src="lib/angular/angular-resource.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="lib/spin.min.js"></script>
+  <script src="lib/angular/angular-spinner.min.js"></script>
+  
   <script src="js/app.js"></script>
   <script src="js/services.js"></script>
   <script src="js/controllers.js"></script>
   <script src="js/filters.js"></script>
   <script src="js/directives.js"></script>
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+      
     <script src="lib/bootstrap/js/bootstrap.min.js"></script>
     <script type="text/javascript">
 		$(document).ready(function () {

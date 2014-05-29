@@ -40,3 +40,17 @@ margin-bottom: 3px;
 .custom-navbar-toggle {
 	float: left;
 }
+
+#loadingSpin {
+	height: 100%;
+	width: 100%;
+	background: #eee;
+	background: #ccc;
+	background: rgba(255,255,255,.5);
+	z-index: 3!important;
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+}

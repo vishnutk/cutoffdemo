@@ -6,7 +6,8 @@ angular.module('myApp', [
   'myApp.filters',
   'myApp.services',
   'myApp.directives',
-  'myApp.controllers'
+  'myApp.controllers',
+  'angularSpinner'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/search', {templateUrl: 'views/search-results.html', controller: 'SearchCtrl'});

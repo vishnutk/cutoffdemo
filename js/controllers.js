@@ -101,6 +101,7 @@ angular.module('myApp.controllers', [])
 				data.collegeType = $scope.searchData.collegeType;
 				data.percentage = $scope.searchData.percentage;
 				//console.log(data);
+				$rootScope.loadingData = true;
 				CollegeService.searchCollege(data, function(data) {
 					console.log(data);
 
@@ -109,6 +110,7 @@ angular.module('myApp.controllers', [])
 					} else {
 						$rootScope.resultData = [];
 					}
+					$rootScope.loadingData = false;
 				});
 			//}
 		};
