@@ -106,6 +106,15 @@ class College extends REST_Controller
         $sql = $sql . " inner join course on cutoff.courseCode = course.courseCode";
         $sql = $sql . " WHERE seattype = '" .$this->post('seatType'). "' and percentage < ".$this->post('percentage');
         $sql = $sql . " and collegeDist = ".$this->post('distictid');
+
+		if($this->post('isTfws')) {
+        	$sql = $sql . " and isTfws = 1";
+        }
+        
+        if($this->post('courseName')) {
+        	$sql = $sql . " and course.courseName like '".$this->post('courseName')."%' ";
+        }
+//        echo $sql;
         $query = $this->db->query($sql);
         $data = $query->result();
 		
@@ -116,7 +125,20 @@ class College extends REST_Controller
         }
     }
 	
+//	SELECT DISTINCT SUBSTRING(courseName,1,LOCATE("[", courseName)-2) FROM course
 	
-	
+	public function courses_get() {
+		// Display all colleges
+		$this->load->database();
+		$sql = 'SELECT DISTINCT SUBSTRING(courseName,1,LOCATE("[", courseName)-2) as courseName FROM course order by courseName';
+        $query = $this->db->query($sql);
+        $data = $query->result();
+		
+        if($data) {
+            $this->response($data, 200);
+        } else {
+            $this->response(array('error' => 'No Records Found'), 200);
+        }
+	}
 	
 }

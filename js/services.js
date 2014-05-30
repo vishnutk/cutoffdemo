@@ -26,6 +26,12 @@ collegeService.factory('CollegeService', ['$resource', '$http', function($resour
 			});
 		}();
 		
+		this.getCourses = function() {
+			return $resource(appConfigUrl + 'college/courses/format/json', {}, {
+				query: {method:'GET', isArray:true}
+			});
+		}();
+		
 		this.searchCollege = function() {
 			return function(data, callback) {
 				$http.post(appConfigUrl + 'college/searchcollege/format/json', data).success(function(data, status, headers) {

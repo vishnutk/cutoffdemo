@@ -59,7 +59,18 @@ angular.module('myApp.controllers', [])
 		$scope.init = function(){
 			CollegeService.getDistricts.query(function(data) {
 				$scope.district = data;
-				//console.log(data);
+				console.log(data);
+			});
+			
+			CollegeService.getCourses.query(function(courses) {
+				$scope.courses = [];
+				for(var i=1;i<courses.length; i++) {
+					var p = {};
+					p.courseName = courses[i].courseName;
+					$scope.courses.push(p);
+				}
+//				$scope.courses = courses;
+				console.log($scope.courses);
 			});
 		};
 		
@@ -96,10 +107,18 @@ angular.module('myApp.controllers', [])
 			var data = {};
 			//if($scope.validateInput()) {
 //			alert('test');
+// 			console.log($scope.searchData.courseName.courseName);
+// 			return;
 				data.seatType = $scope.searchData.type + $scope.searchData.gender + $scope.searchData.category + $scope.searchData.distType;
 				data.distictid = $scope.searchData.dist.districtID;
 				data.collegeType = $scope.searchData.collegeType;
 				data.percentage = $scope.searchData.percentage;
+				
+				if($scope.searchData.courseName) {
+					data.courseName = $scope.searchData.courseName.courseName;
+				}
+				
+				data.isTfws = $scope.searchData.tfws;
 				//console.log(data);
 				$rootScope.loadingData = true;
 				CollegeService.searchCollege(data, function(data) {

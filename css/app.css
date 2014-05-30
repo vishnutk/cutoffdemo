@@ -54,3 +54,14 @@ margin-bottom: 3px;
 	bottom: 0;
 	right: 0;
 }
+
+.list-group-item select {
+	width: 90%;
+}
+.searchbanner {
+	max-width: 100%;
+	margin: 0 auto;
+	height: 100px;
+	width: 100%;
+	margin-bottom: 15px;
+}

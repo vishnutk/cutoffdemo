@@ -12,6 +12,7 @@
 					<option value="N">Non-Technical</option>
 				</select>
 			</li>
+<!-- 
             <li class="list-group-item">
 	            <span style="color:red" ng-show="myForm.selectCollegeType.$error.required">*</span>
 				<select name="selectCollegeType" ng-model="searchData.collegeType" placeholder="Select College Type" required>
@@ -22,6 +23,7 @@
 					<option value="autonomus">Autonomus</option>
 				</select>
             </li>
+ -->
 			<li class="list-group-item">
 				<span style="color:red" ng-show="myForm.selectGender.$error.required">*</span>
 				<select name="selectGender" ng-model="searchData.gender" placeholder="Select Gender" required>
@@ -57,6 +59,11 @@
 				<span style="color:red" ng-show="myForm.selectDist.$error.required">*</span>
 				<select name="selectDist" ng-model="searchData.dist" ng-options="dist.districtName for dist in district" required>
 					<option value="">Select District...</option>
+				</select>
+			</li>
+			<li class="list-group-item">
+				<select name="selectCourse" ng-model="searchData.courseName" ng-options="course.courseName for course in courses">
+					<option value="">Select Course...</option>
 				</select>
 			</li>
 			<li class="list-group-item">
