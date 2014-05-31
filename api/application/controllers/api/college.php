@@ -103,8 +103,14 @@ class College extends REST_Controller
 		$this->load->database();
         
         $sql = "SELECT * FROM cutoff inner join college on cutoff.collegeID = college.collegeID";
-        $sql = $sql . " inner join course on cutoff.courseCode = course.courseCode";
-        $sql = $sql . " WHERE seattype = '" .$this->post('seatType'). "' and percentage < ".$this->post('percentage');
+        $sql = $sql . " inner join course on cutoff.courseCode = course.courseCode WHERE";
+        
+        if($this->post('isPhysical')) {
+        	$sql = $sql . " seattype like 'NPH%' ";
+        } else {
+        	$sql = $sql . " seattype = '" .$this->post('seatType')."'";
+        }
+        $sql = $sql. " and percentage < ".$this->post('percentage');
         $sql = $sql . " and collegeDist = ".$this->post('distictid');
 
 		if($this->post('isTfws')) {
