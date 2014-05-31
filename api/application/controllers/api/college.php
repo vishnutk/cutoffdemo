@@ -115,14 +115,14 @@ class College extends REST_Controller
         	$sql = $sql . " and course.courseName like '".$this->post('courseName')."%' ";
         }
 //        echo $sql;
-        $query = $this->db->query($sql);
+         $query = $this->db->query($sql);
         $data = $query->result();
 		
         if($data) {
             $this->response($data, 200);
         } else {
             $this->response(array('error' => 'No Records Found'), 200);
-        }
+        } 
     }
 	
 //	SELECT DISTINCT SUBSTRING(courseName,1,LOCATE("[", courseName)-2) FROM course

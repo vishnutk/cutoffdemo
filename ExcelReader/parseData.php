@@ -31,8 +31,10 @@
     function getDistrictCode($arg_1)
 	{
 		echo "Argument ". $arg_1;
+		$arg_1 = rtrim($arg_1, ' ');
+		$arg_1 = rtrim($arg_1, '.');
 		switch($arg_1) {
-			case "Ahmadnagar": return 1;
+			case "Ahmednagar": return 1;
 			case "Akola": return 2;
 			case "Amravati": return 3;
 			case "Aurangabad": return 4;
@@ -49,16 +51,17 @@
 			case "Kolhapur": return 15;
 			case "Latur": return 16;
 			case "Mumbai and Mumbai Suburban": return 17;
+			case "Mumbai": return 17;
 			case "Nagpur": return 18;
 			case "Nanded": return 19;
 			case "Nandurbar": return 20;
-			case "Nasik": return 21;
+			case "Nashik": return 21;
 			case "Osmanabad": return 22;
 			case "Parbhani": return 23;
 			case "Pune": return 24;
-			case "Raigadh": return 25;
+			case "Raigad": return 25;
 			case "Ratnagiri": return 26;
-			case "Sangali": return 27;
+			case "Sangli": return 27;
 			case "Satara": return 28;
 			case "Sindhudurg": return 29;
 			case "Solapur": return 30;
@@ -73,18 +76,18 @@
 	 
 
 
-    $fnCnt = 51;
+    $fnCnt = 651;
     $link  = mysql_connect('localhost', 'root', '');
     if (!$link) {
         die('Could not connect: ' . mysql_error());
     }
     
-    $db_selected = mysql_select_db('cutoffsearch', $link);
+    $db_selected = mysql_select_db('cutoffsearchdb', $link);
     if (!$db_selected) {
         die('Can\'t use foo : ' . mysql_error());
     }
     
-    for ($fnCnt = 101; $fnCnt < 2001; $fnCnt += 50) {
+    for ($fnCnt = 1; $fnCnt < 4151; $fnCnt += 50) {
         $data = new Spreadsheet_Excel_Reader();
         $data->setOutputEncoding('CP1251');
         $data->read('meta/' . $fnCnt . '.xls');
@@ -142,11 +145,27 @@
                     
                     if ($data->sheets[0]['cells'][$i][3]) {
                         $course     = str_replace('#', '', $data->sheets[0]['cells'][$i][3]);
-                        $course     = str_replace('*', '', $course);
+                        //$course     = str_replace('*', '', $course);
+						
+						$isStar = strpos($course, "*");
+						$isDollor = strpos($course, "$");
+						$course     = str_replace('*', '', $course);
+						$course     = str_replace('$', '', $course);
+						$course     = str_replace('@', '', $course);
+						
                         $course     = explode(' - ', $course);
                         $courseCode = $course[0];
                         //					echo $collegeid;
-                        $courseName = $course[1];
+						if($isStar === false) {
+							$courseName = $course[1];
+						} else {
+							$courseName = $course[1] . " *";
+						}
+						
+						if($isDollor === true) {
+							$courseName = $courseName . " $";
+						}
+						
                         $isTfws     = strpos($courseName, "[TFWS]");
                         //					echo $collegename;
                         if ($isTfws === false) {
