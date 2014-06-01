@@ -1,5 +1,7 @@
 'use strict';
 
+var isMobileDevice = (/android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(navigator.userAgent.toLowerCase()));
+
 // Declare app level module which depends on filters, and services
 angular.module('myApp', [
   'ngRoute',

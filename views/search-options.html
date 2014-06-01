@@ -55,7 +55,7 @@
 					<option value="O">Other District</option>
 				</select>
 			</li>
-			<li class="list-group-item">
+			<li class="list-group-item" tooltip="district">
 				<span style="color:red" ng-show="myForm.selectDist.$error.required">*</span>
 				<select name="selectDist" ng-model="searchData.dist" ng-options="dist.districtName for dist in district" required>
 					<option value="">Select District...</option>
@@ -87,7 +87,7 @@
 			<button ng-disabled="!myForm.$valid" type="submit" class="btn btn-info" ng-click="callSearch()">
 				<span class="glyphicon glyphicon-search"></span> Search
 			</button>
-
+			<a ng-click="resetForm()">Reset</a>
 			</li>
 
           </ul>

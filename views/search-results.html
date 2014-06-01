@@ -1,20 +1,25 @@
-<div class="container searchContainer">
 
+<div id="searchContainer" class="container searchContainer">
       <div class="row row-offcanvas row-offcanvas-right">
 	<div class="panel panel-info col-xs-12 col-sm-9">
       <!-- Default panel contents -->
-      <div class="panel-heading">College Results</div>
+      <div class="panel-heading">College Results {{resultsFound}}
+      	<button type="button" class="btn btn-primary pull-right printButton" ng-show="resultData.length" ng-click="printData()">
+      		      	<span class="glyphicon glyphicon-print"></span>
+      	</button>
+      </div>
 
       <!-- Table -->
-      <table class="table">
+
+      <table id="searchTable" class="table table-striped">
         <thead>
           <tr>
             <th>Sr.No.</th>
             <th>Institute</th>
             <th>Course</th>
             <th>Category</th>
-			<th>Merit No.</th>
 			<th>Cutoff %</th>
+			<th>Merit No.</th>
           </tr>
         </thead>
         <tbody>
@@ -23,13 +28,14 @@
             <td><a ng-href="http://www.dtemaharashtra.gov.in/approvedinstitues/StaticPages/frmInstituteSummary.aspx?InstituteCode={{d.collegeID}}" target="_blank">{{d.collegeName}}</a></td>
             <td>{{d.courseName}}</td>
             <td>{{d.category}}</td>
-        	<td>{{d.meritno}}</td>
             <td>{{d.percentage}}</td>
+        	<td>{{d.meritno}}</td>
           </tr>
         </tbody>
       </table>
+
       <div class="alert alert-danger" ng-hide="resultData">
-      	No result found
+      	{{searchResultMessage}}
       </div>
     </div>
 
@@ -41,7 +47,7 @@
       <hr>
 
       <footer>
-        <p>© Company 2014</p>
+        <p>All rights reserved, Gestalt IT Consultancy</p>
       </footer>
 
     </div><!--/.container-->
