@@ -102,7 +102,7 @@ angular.module('myApp.controllers', [])
 
 		};
 		
-		$rootScope.searchResultMessage = "Please apply search filter to see the results";
+		$rootScope.searchResultMessage = "Cutoff Result - Polytechnic 2013-14. Please apply search filter to see the results.";
 		$rootScope.resultsFound = "";
 		
 		$scope.resetForm = function() {
@@ -131,7 +131,7 @@ angular.module('myApp.controllers', [])
 				data.distictid = $scope.searchData.dist.districtID;
 				data.collegeType = $scope.searchData.collegeType;
 				
-				if(parseInt($scope.searchData.percentage) < 101) {
+				if(parseInt($scope.searchData.percentage) < 101 && parseInt($scope.searchData.percentage) > 34) {
 					data.percentage = $scope.searchData.percentage;
 				} else {
 					alert("Please enter valid percentage");
@@ -188,6 +188,10 @@ angular.module('myApp.controllers', [])
 						$rootScope.resultsFound = "";
 					}
 					$rootScope.loadingData = false;
+					data = {};
+					data.mobileNumber = localStorage.getItem("userMobile");
+					CollegeService.updateSearchCounter(data, function() {
+					});
 				});
 			//}
 		};
@@ -201,11 +205,40 @@ angular.module('myApp.controllers', [])
 		});
  }])
  .controller('SearchCtrl', ["$scope", "$rootScope","CollegeService", function($scope, $rootScope, CollegeService) {
- 
+//		localStorage.setItem("userMobile", "");
+		if(!localStorage.getItem("userMobile")) {
+	 		$rootScope.loggingIn = true;
+	 	} else {
+		 	$rootScope.welcomeMessage = "Welcome " + localStorage.getItem("userName") + "...!!!";
+	 	}
+	 	
+	 	$scope.logout = function() {
+	 		localStorage.removeItem("userMobile");
+	 		localStorage.removeItem("userName");
+	 		 location.reload();
+	 	};
+	 	
+	 	$rootScope.user = {};
+	 	$rootScope.submitLogin = function() {
+			var userData = {};
+			userData.userName = $rootScope.user.userName;
+			userData.userEmail = $rootScope.user.userEmail;
+			userData.userMobile = $rootScope.user.mobileNumber;
+			
+			CollegeService.addUser(userData, function() {
+				$("#loginModal").modal('hide');
+				$rootScope.welcomeMessage = "Welcome " + $rootScope.user.userName + "...!!!";
+				localStorage.setItem("userMobile", $rootScope.user.mobileNumber);
+				localStorage.setItem("userName", $rootScope.user.userName);
+			});
+	 		
+	 	};
+	 	
  		$scope.printData = function() {
  			   var divToPrint=document.getElementById("searchTable");
 			   var newWin= window.open("");
 			   var str = "<img style='max-width: 100%;margin: 0 auto;height: 100px;width: 100%;margin-bottom: 15px;' src='./img/gestalt_board.jpg'/>";
+			   str = str + "Search Results for - " + localStorage.getItem("userName") + "<br/>";
 			   str = str + divToPrint.outerHTML;
 			   newWin.document.write(str);
 			   newWin.print();

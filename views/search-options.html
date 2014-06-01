@@ -7,9 +7,9 @@
             <li class="list-group-item">
 	            <span style="color:red" ng-show="myForm.selectType.$error.required">*</span>
             	<select name="selectType" ng-model="searchData.type" placeholder="Select Type" required>
-					<option value="">Select Type...</option>
-					<option value="T">Technical</option>
+					<option value="">Select Seat Type...</option>
 					<option value="N">Non-Technical</option>
+					<option value="T">Technical</option>
 				</select>
 			</li>
 <!-- 
@@ -63,7 +63,7 @@
 			</li>
 			<li class="list-group-item">
 				<select name="selectCourse" ng-model="searchData.courseName" ng-options="course.courseName for course in courses">
-					<option value="">Select Course...</option>
+					<option value="">All Courses...</option>
 				</select>
 			</li>
 			<li class="list-group-item">

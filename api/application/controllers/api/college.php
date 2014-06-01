@@ -81,7 +81,29 @@ class College extends REST_Controller
 		$message = array("query"=> $query, "message" => "Added Successfuly");
 		$this->response($message, 200);
     }
-	
+
+	public function adduser_post()
+    {
+		$this->load->database();
+		
+		$query = $this->db->query('SELECT * FROM cutoffuser where mobile = "'.$this->post('userMobile').'"');
+
+		if($query->num_rows() == 0) {
+				$data = array(
+			   		'mobile' =>  $this->post('userMobile'),
+               		'name' =>  $this->post('userName'),
+               		'email' =>  $this->post('userEmail')
+            	);
+			$query = $this->db->insert('cutoffuser', $data); 
+		} else {
+			$sql = "UPDATE cutoffuser SET loginCnt = loginCnt + 1 WHERE mobile = ".$this->post('userMobile');
+		    $query = $this->db->query($sql);
+        	$data = $query->result();
+		}
+		$message = array("query"=> $query, "message" => "Added Successfuly");
+		$this->response($message, 200);
+    }
+    	
 	public function addcutoff_post()
     {
 		$this->load->database();
@@ -97,6 +119,19 @@ class College extends REST_Controller
 		$message = array("query"=> $query, "message" => "Added Successfuly");
 		$this->response($message, 200);
     }
+	
+	function updatesearchcounter_post() {
+		$this->load->database();
+		$sql = "UPDATE cutoffuser SET searchCnt = searchCnt + 1 WHERE mobile = ".$this->post('mobileNumber');
+	    $query = $this->db->query($sql);
+        $data = $query->result();
+		
+        if($data) {
+            $this->response($data, 200);
+        } else {
+            $this->response(array('error' => 'No Records Found'), 200);
+        } 
+	}
 	
 	function searchcollege_post()
     {

@@ -123,3 +123,7 @@ only screen and (max-width: 760px),
 .printButton {
 	padding: 3px;
 }
+
+.error {
+	color:red;
+}

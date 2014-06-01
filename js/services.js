@@ -9,8 +9,6 @@ var collegeService = angular.module('myApp.services', ['ngResource']);
 
  collegeService.value('version', '0.1');
   
-  var appConfigUrl = 'http://localhost/cutoffdemo/api/index.php/api/';
-  
 //  var phonecatServices = angular.module('phonecatServices', ['ngResource']);
 collegeService.factory('CollegeService', ['$resource', '$http', function($resource, $http) {
 	var CollegeService = function() {
@@ -32,6 +30,15 @@ collegeService.factory('CollegeService', ['$resource', '$http', function($resour
 			});
 		}();
 		
+		this.addUser = function() {
+			return function(data, callback) {
+				$http.post(appConfigUrl + '/college/adduser/format/json', data).success(function(data, status, headers) {
+//					alert('testing');
+					callback();
+				});
+			};
+		}();
+
 		this.searchCollege = function() {
 			return function(data, callback) {
 				$http.post(appConfigUrl + 'college/searchcollege/format/json', data).success(function(data, status, headers) {
@@ -40,6 +47,15 @@ collegeService.factory('CollegeService', ['$resource', '$http', function($resour
 			};
 
 		}();
+
+		this.updateSearchCounter = function() {
+			return function(data, callback) {
+				$http.post(appConfigUrl + 'college/updatesearchcounter/format/json', data).success(function(data, status, headers) {
+					callback(data);
+				});
+			};
+
+		}();		
 		
 		this.deleteCollege = function() {
 			return function(data, callback) {
@@ -58,7 +74,7 @@ collegeService.factory('CollegeService', ['$resource', '$http', function($resour
 				});
 			};
 		}();
-		
+				
 		this.addCourse = function() {
 			return function(data, callback) {
 				$http.post('http://localhost/cutofsearch/api/index.php/api/college/addcourse/format/json', data).success(function(data, status, headers) {
