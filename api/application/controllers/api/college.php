@@ -141,7 +141,7 @@ class College extends REST_Controller
         $sql = $sql . " inner join course on cutoff.courseCode = course.courseCode WHERE";
         
         if($this->post('isPhysical')) {
-        	$sql = $sql . " seattype like 'NPH%' ";
+        	$sql = $sql . " seattype like 'NPH%".substr($this->post('seatType'), -1)."' " ;
         } else {
         	$sql = $sql . " seattype = '" .$this->post('seatType')."'";
         }
