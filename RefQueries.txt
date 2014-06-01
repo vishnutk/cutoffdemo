@@ -1,0 +1,24 @@
+select collegeName, course.courseCode, course.courseName, cutoff.meritno, percentage from cutoff,(
+SELECT collegeName, course.courseCode, course.courseName, meritno, MIN( percentage )as percentage FROM cutoff INNER JOIN college ON cutoff.collegeID = college.collegeID INNER JOIN course ON cutoff.courseCode = course.courseCode WHERE seattype = 'NGOPENH' and percentage < 80 and collegeDist = 18 GROUP BY collegeName, course.courseCode) temp
+where temp.meritno=cutoff.meritno
+and temp.courseCode=253524510
+
+select collegeName, course.courseCode, course.courseName,temp.meritno,temp.percentage from cutoff inner join (
+SELECT  meritno, MIN( percentage )as percentage FROM cutoff INNER JOIN college ON cutoff.collegeID = college.collegeID INNER JOIN course ON cutoff.courseCode = course.courseCode WHERE seattype = 'NGOPENH' and percentage < 80 and collegeDist = 18 and meritno=120582
+GROUP BY meritno) temp
+on cutoff.meritno = temp.meritno inner join course on course.courseCode = cutoff.courseCode inner join
+college on college.collegeid = cutoff.collegeid
+where WHERE seattype = 'NGOPENH' and percentage < 80 and collegeDist = 18
+
+
+
+
+
+select collegeName, course.courseCode, course.courseName,temp.meritno,temp.percentage from cutoff inner join (
+SELECT  meritno, MIN( percentage )as percentage FROM cutoff INNER JOIN college ON cutoff.collegeID = college.collegeID INNER JOIN course ON cutoff.courseCode = course.courseCode WHERE seattype = 'NGOPENH' and percentage < 80 and collegeDist = 18
+GROUP BY meritno) temp
+on cutoff.meritno = temp.meritno inner join course on course.courseCode = cutoff.courseCode inner join
+college on college.collegeid = cutoff.collegeid
+ WHERE seattype = 'NGOPENH' and temp.percentage < 80 and collegeDist = 18
+
+
