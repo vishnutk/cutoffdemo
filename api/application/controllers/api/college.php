@@ -142,7 +142,9 @@ class College extends REST_Controller
         
         if($this->post('isPhysical')) {
         	$sql = $sql . " seattype like 'NPH%".substr($this->post('seatType'), -1)."' " ;
-        } else {
+        } if($this->post('seatType')[0] === "M" ) {
+			$sql = $sql . " seattype like '".substr($this->post('seatType'), 0, 2)."%".substr($this->post('seatType'), -1)."' " ;
+		} else {
         	$sql = $sql . " seattype = '" .$this->post('seatType')."'";
         }
         $sql = $sql. " and percentage < ".$this->post('percentage');
@@ -155,7 +157,7 @@ class College extends REST_Controller
         if($this->post('courseName')) {
         	$sql = $sql . " and course.courseName like '".$this->post('courseName')."%' ";
         }
-//        echo $sql;
+ //       echo $sql;
          $query = $this->db->query($sql);
         $data = $query->result();
 		

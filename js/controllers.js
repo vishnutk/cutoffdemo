@@ -164,7 +164,7 @@ angular.module('myApp.controllers', [])
 
 						for(var m =0; m< data.length; m++) {
 							var obj = data[m];
-							if($scope.searchData.phand || $scope.searchData.defence) {
+							if($scope.searchData.phand || $scope.searchData.defence || $scope.searchData.type==="M") {
 //								obj.category = "PHC";
 							} else {
 								obj.category = $scope.searchData.category;
